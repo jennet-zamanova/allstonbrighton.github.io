@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<h1>Allston Brighton CDC Data Visualization</h1>} />
+      <Route path="/" element={<Map />} />
       {/* <Route
         path="/"
         element={
