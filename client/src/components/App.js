@@ -11,6 +11,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import Map from "./Map.js";
 
 /**
  * Define the "App" component
@@ -60,5 +61,4 @@ const App = () => {
     </Routes>
   );
 };
-
 export default App;
