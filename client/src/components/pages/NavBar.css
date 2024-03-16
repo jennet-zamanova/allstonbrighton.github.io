@@ -1,0 +1,28 @@
+.NavBar-link,
+.NavBar-link:visited {
+  font-size: var(--m);
+  color: white;
+  /* opacity: 0.6; */
+  text-decoration: none;
+  padding: 0px var(--m);
+}
+
+.NavBar-link:hover {
+  opacity: 0.8;
+}
+
+.NavBar-title {
+  text-decoration: none;
+  /* color: var(--primary); */
+  color: #f58220;
+  font-size: var(--l);
+  padding: 4px;
+}
+
+.NavBar-container {
+  padding: var(--s) var(--m);
+  background-color: var(--primary-light);
+  height: 5vh;
+  align-items: center;
+  background-color: #0f929c;
+}

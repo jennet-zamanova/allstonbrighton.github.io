@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
+import NavBar from "./pages/NavBar.js";
 
 import "../utilities.css";
 
@@ -14,10 +15,13 @@ import { get, post } from "../utilities";
  */
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<h1>Allston Brighton CDC Data Visualization</h1>} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<h1>Allston Brighton CDC Data Visualization</h1>} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 
