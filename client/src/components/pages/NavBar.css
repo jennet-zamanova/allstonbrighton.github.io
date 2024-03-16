@@ -1,8 +1,7 @@
 .NavBar-link,
 .NavBar-link:visited {
   font-size: var(--m);
-  color: white;
-  /* opacity: 0.6; */
+  color: #ffffff;
   text-decoration: none;
   padding: 0px var(--m);
 }
@@ -14,7 +13,7 @@
 .NavBar-title {
   text-decoration: none;
   /* color: var(--primary); */
-  color: #f58220;
+  /* color: #f58220; */
   font-size: var(--l);
   padding: 4px;
 }
