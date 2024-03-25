@@ -1,6 +1,6 @@
 export const map_1980 = {
   type: "FeatureCollection",
-  name: "neighborhood_tarct_1980",
+  name: "neighborhood_tract_1980",
   crs: { type: "name", properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" } },
   features: [
     {
