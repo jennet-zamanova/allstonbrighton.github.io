@@ -15,11 +15,14 @@ const Map = () => {
 
   useEffect(() => {
     const body = { name: "neighborhood_tract_1980" };
-    get("/api/allGeoJSON", body).then((output) => {
-      setMap(output);
-      console.log("printing output rn");
-      console.log(output);
-    });
+    get("/api/allGeoJSON", body)
+      .then((output) => {
+        // setMap(output);
+        setMap(output);
+      })
+      .catch((error) => {
+        console.error("Error while parsing GeoJSON data", error);
+      });
   }, []);
   return (
     <div className="Map">
@@ -33,10 +36,17 @@ const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <GeoJSON data={map} style={{ fillColor: "red" }}>
+
+        {map &&
+          map.features &&
+          map.features.map((feature, index) => (
+            <GeoJSON key={index} data={feature} style={{ fillColor: "red" }} />
+          ))}
+
+        {/* <GeoJSON data={map ? map : null} style={{ fillColor: "red" }}>
           {console.log("hi")}
-          {console.log(map)}
-        </GeoJSON>
+          {map ? console.log(map) : console.log("map null rn")}
+        </GeoJSON> */}
         {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
