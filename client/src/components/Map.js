@@ -48,15 +48,15 @@ const Map = () => {
             return <GeoJSON key={index} data={feature} style={{ fillColor: "red" }} />;
           })} */}
 
-        <GeoJSON data={map_ver_2} style={{ fillColor: "red" }}>
+        {/* <GeoJSON data={map_ver_2} style={{ fillColor: "red" }}>
           {console.log("printing from actual data")}
           {console.log(map_ver_2)}
-        </GeoJSON>
+        </GeoJSON> */}
 
-        {/* <GeoJSON data={map ? map.features[0] : null} style={{ fillColor: "red" }}>
+        <GeoJSON data={map ? map.features[0] : null} style={{ fillColor: "red" }}>
           {console.log("hi - from api call")}
           {map ? console.log(JSON.stringify(map.features[0])) : console.log("map null rn")}
-        </GeoJSON> */}
+        </GeoJSON>
         {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
