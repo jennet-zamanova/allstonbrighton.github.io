@@ -47,6 +47,7 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.post("/tract", (req, res) => {
+  console.log("this is tract", req.body);
   const tract = new Census(req.body);
   tract.save();
 });
