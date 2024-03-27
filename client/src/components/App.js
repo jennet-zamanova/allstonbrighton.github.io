@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import NavBar from "./pages/NavBar.js";
+import Map from "./pages/Map.js";
 
 import "../utilities.css";
 
@@ -19,6 +20,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<h1>Allston Brighton CDC Data Visualization</h1>} />
+        <Route path="/Map/" element={<Map />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
