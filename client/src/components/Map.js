@@ -41,22 +41,9 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* {map &&
-          map.features &&
-          map.features.map((feature, index) => {
-            console.log("rendering stuff - printing feature");
-            console.log(feature);
-            return <GeoJSON key={index} data={feature} style={{ fillColor: "red" }} />;
-          })} */}
-
         {/* <GeoJSON data={map_ver_2} style={{ fillColor: "red" }}>
           {console.log("printing from actual data")}
           {console.log(map_ver_2)}
-        </GeoJSON> */}
-
-        {/* <GeoJSON data={map ? map.features[0] : null} style={{ fillColor: "red" }}>
-          {console.log("hi - from api call")}
-          {map ? console.log(JSON.stringify(map.features[0])) : console.log("map null rn")}
         </GeoJSON> */}
         {geojson}
         {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
