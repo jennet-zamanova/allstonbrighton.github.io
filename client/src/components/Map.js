@@ -18,10 +18,9 @@ const Map = () => {
         setMap(output);
         // creating geoJSON object to visualize map data once we have it from api call
         setGeojson(<GeoJSON data={output} style={{ fillColor: "red" }} />);
-        console.log(output);
       })
       .catch((error) => {
-        console.error("Error while parsing GeoJSON data", error);
+        console.error("Error while getting GeoJSON data from MongoDB", error);
       });
   }, []);
   return (
