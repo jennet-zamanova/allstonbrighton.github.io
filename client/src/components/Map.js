@@ -8,7 +8,7 @@ import "./Map.css";
 
 const Map = () => {
   const [map, setMap] = useState(null);
-  let map_test;
+  const [geojson, setGeojson] = useState(null);
   // get("/api/allGeoJSON", { name: "neighborhood_tract_1980" }).then((output) => {
   //   setMap(output);
   // });
@@ -21,7 +21,8 @@ const Map = () => {
       .then((output) => {
         // setMap(output);
         setMap(output);
-        console.log(output.crs);
+        setGeojson(<GeoJSON data={output} style={{ fillColor: "red" }} />);
+        console.log(output);
       })
       .catch((error) => {
         console.error("Error while parsing GeoJSON data", error);
@@ -53,10 +54,11 @@ const Map = () => {
           {console.log(map_ver_2)}
         </GeoJSON> */}
 
-        <GeoJSON data={map ? map.features[0] : null} style={{ fillColor: "red" }}>
+        {/* <GeoJSON data={map ? map.features[0] : null} style={{ fillColor: "red" }}>
           {console.log("hi - from api call")}
           {map ? console.log(JSON.stringify(map.features[0])) : console.log("map null rn")}
-        </GeoJSON>
+        </GeoJSON> */}
+        {geojson}
         {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
