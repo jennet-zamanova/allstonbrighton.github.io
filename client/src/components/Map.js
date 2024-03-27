@@ -9,18 +9,15 @@ import "./Map.css";
 const Map = () => {
   const [map, setMap] = useState(null);
   const [geojson, setGeojson] = useState(null);
-  // get("/api/allGeoJSON", { name: "neighborhood_tract_1980" }).then((output) => {
-  //   setMap(output);
-  // });
 
   useEffect(() => {
     const body = { name: "neighborhood_tract_1980" };
-    // post("/api/tract", map_1980);
+    // post("/api/tract", map_1980); // use this code to post new data to mongoDB
 
     get("/api/allGeoJSON", body)
       .then((output) => {
-        // setMap(output);
         setMap(output);
+        // creating geoJSON object to visualize map data once we have it from api call
         setGeojson(<GeoJSON data={output} style={{ fillColor: "red" }} />);
         console.log(output);
       })
@@ -41,11 +38,8 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* <GeoJSON data={map_ver_2} style={{ fillColor: "red" }}>
-          {console.log("printing from actual data")}
-          {console.log(map_ver_2)}
-        </GeoJSON> */}
         {geojson}
+
         {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
