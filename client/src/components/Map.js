@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../utilities.js";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
 import { map_1980 } from "./1980.js";
-import { map_ver_2 } from "./1980_ver2.js";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
