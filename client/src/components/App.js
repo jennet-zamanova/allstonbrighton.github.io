@@ -11,7 +11,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
-import Map from "./Map.js";
+import Maps from "./Maps.js";
 
 /**
  * Define the "App" component
@@ -45,7 +45,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Map />} />
+      <Route path="/" element={<Maps />} />
       {/* <Route
         path="/"
         element={
