@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Census = require("./models/census");
 
 // import authentication library
 const auth = require("./auth");
@@ -20,6 +21,8 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+
+const mongoose = require("mongoose");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -42,6 +45,28 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.post("/tract", (req, res) => {
+  console.log("this is tract", req.body);
+  const tract = new Census(req.body);
+  tract.save();
+});
+
+router.get("/allGeoJSON", (req, res) => {
+  Census.find({ name: req.query.name })
+    .then((data) => {
+      const output = {
+        type: data[0].type,
+        name: data[0].name,
+        //crs: { type: "name", properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        features: data[0].features,
+      };
+      res.send(output);
+      console.log("retrieving census data hey");
+      console.log(output);
+    })
+    .catch((err) => res.status(500).send("Internal Server Error"));
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

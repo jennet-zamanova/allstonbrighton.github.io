@@ -29,6 +29,7 @@
     "jwt-decode": "^3.1.2",
     "leaflet": "^1.9.4",
     "mongoose": "^6.9.0",
+    "mongoose-geojson-schema": "^2.2.5",
     "nodemon": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

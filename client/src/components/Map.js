@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { get, post } from "../utilities.js";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
 import { map_1980 } from "./1980.js";
 // Import required D3 modules
@@ -8,41 +9,24 @@ import Legend from "./modules/Legend.js";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
-const Map = (props) => {
-  const demographic = props.filter;
+const Map = () => {
+  const [map, setMap] = useState(null);
+  const [geojson, setGeojson] = useState(null);
 
-  const censusTracts = map_1980.features.map((feature) => {
-    const tract = feature.properties.GISJOIN2;
-    return tract.slice(-3) / 100;
-  });
+  useEffect(() => {
+    const body = { name: "neighborhood_tract_1980" };
+    // post("/api/tract", map_1980); // use this code to post new data to mongoDB
 
-  const kids = map_1980.features.map((feature) => feature.properties[demographic]);
-  // Define the color scale
-  const colorScale = scaleLinear()
-    .domain([Math.min(...kids), Math.max(...kids)])
-    .range([0.3, 1]);
-
-  // Create a function to get the color for a given data point
-  const getColorForValue = (value) => interpolateYlGnBu(colorScale(value));
-  const allColors = map_1980.features.map((feature) => [
-    feature.properties.GISJOIN2,
-    getColorForValue(feature.properties[demographic]),
-  ]);
-
-  const styleFunction = (feature) => {
-    return {
-      color: getColorForValue(feature.properties[demographic]) || "red", // Default color if not specified
-      fillOpacity: 0.6, // You can set other style properties here, like weight, fill color, etc.
-    };
-  };
-
-  // Function to handle click event on GeoJSON feature
-  const handleFeatureClick = (feature, layer) => {
-    // Bind popup to the clicked feature
-    if (feature.properties) {
-      layer.bindPopup("Number of Kids" + "<br>" + feature.properties[demographic]);
-    }
-  };
+    get("/api/allGeoJSON", body)
+      .then((output) => {
+        setMap(output);
+        // creating geoJSON object to visualize map data once we have it from api call
+        setGeojson(<GeoJSON data={output} style={{ fillColor: "red" }} />);
+      })
+      .catch((error) => {
+        console.error("Error while getting GeoJSON data from MongoDB", error);
+      });
+  }, []);
   return (
     <div className="Map">
       <MapContainer
@@ -55,13 +39,16 @@ const Map = (props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <GeoJSON data={map_1980} style={styleFunction} onEachFeature={handleFeatureClick}></GeoJSON>
+
+        {geojson}
+
         {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker> */}
         {/* <Legend legendItems={map_1980.features} allColors={allColors} /> */}
+        </Marker> */}
       </MapContainer>
     </div>
   );
