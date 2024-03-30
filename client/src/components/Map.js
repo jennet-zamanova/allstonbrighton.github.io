@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../utilities.js";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
-import { map_1980 } from "./1980.js";
+// import { map_1980 } from "./1980.js";
 // Import required D3 modules
 import { interpolateYlGnBu } from "d3";
 import { scaleLinear } from "d3";
