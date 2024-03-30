@@ -10,9 +10,6 @@ const Maps = (props) => {
       <div style={{ display: "inline-block", width: "45%", height: "90vh", padding: "2.5%" }}>
         <Map filter="JSE_T006_1" />
       </div>
-      {/* 
-      <Map style={{ flex: 1 }}></Map>
-      <Map style={{ flex: 1 }}></Map> */}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../utilities.js";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
-// import { map_1980 } from "./1980.js";
 // Import required D3 modules
 import { interpolateYlGnBu } from "d3";
 import { scaleLinear } from "d3";
@@ -10,16 +9,18 @@ import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
 const Map = (props) => {
-  const [map, setMap] = useState(null);
+  const [mapAB, setMap] = useState(null);
   const [geojson, setGeojson] = useState(null);
+  const [legend, setLegend] = useState(null);
   const demographic = props.filter;
 
-  useEffect((props) => {
+  useEffect(() => {
     const body = { name: "1980" };
     // post("/api/tract", map_1980); // use this code to post new data to mongoDB
 
     get("/api/allGeoJSON", body)
       .then((output) => {
+        console.log(output);
         setMap(output);
         // creating geoJSON object to visualize map data once we have it from api call
         setGeojson(
@@ -31,10 +32,17 @@ const Map = (props) => {
       });
   }, []);
 
-  const styleFunction = (feature) => {
-    console.log(map);
-    if (map !== null) {
-      const demographicCategory = map.features.map((feature) => feature.properties[demographic]);
+  let styleFunction = (feature) => {
+    return {
+      color: "red", // Default color if not specified
+      fillOpacity: 0.6, // You can set other style properties here, like weight, fill color, etc.
+    };
+  };
+  useEffect(() => {
+    if (mapAB !== null) {
+      console.log(mapAB);
+      // select colorscale based on data
+      const demographicCategory = mapAB.features.map((feature) => feature.properties[demographic]);
       // Define the color scale
       const colorScale = scaleLinear()
         .domain([Math.min(...demographicCategory), Math.max(...demographicCategory)])
@@ -42,17 +50,36 @@ const Map = (props) => {
 
       // Create a function to get the color for a given data point
       const getColorForValue = (value) => interpolateYlGnBu(colorScale(value));
-      return {
-        color: getColorForValue(feature.properties[demographic]) || "red", // Default color if not specified
-        fillOpacity: 0.6, // You can set other style properties here, like weight, fill color, etc.
+
+      // color the map
+      styleFunction = (feature) => {
+        return {
+          color: getColorForValue(feature.properties[demographic]) || "red", // Default color if not specified -> smth went wrong
+          fillOpacity: 0.6,
+        };
       };
+
+      // setup the legend
+      const censusTracts = mapAB.features.map((feature) => {
+        const tract = feature.properties.GISJOIN2;
+        return tract.slice(-3) / 100;
+      });
+
+      const allColors = mapAB.features.map((feature) => [
+        feature.properties.GISJOIN2,
+        getColorForValue(feature.properties[demographic]),
+      ]);
+
+      setGeojson(<GeoJSON data={mapAB} style={styleFunction} onEachFeature={handleFeatureClick} />);
+      setLegend(<Legend legendItems={mapAB.features} allColors={allColors} />);
     }
-  };
+  }, [mapAB]);
 
   // Function to handle click event on GeoJSON feature
   const handleFeatureClick = (feature, layer) => {
     // Bind popup to the clicked feature
     if (feature.properties) {
+      // modify once the category name is known
       layer.bindPopup("Number of some category" + "<br>" + feature.properties[demographic]);
     }
   };
@@ -71,27 +98,10 @@ const Map = (props) => {
         />
 
         {geojson}
-
-        {/* <Marker position={[42.35346337378607, -71.14454379278231]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker> */}
-        {/* <Legend legendItems={map_1980.features} allColors={allColors} /> */}
+        {legend}
       </MapContainer>
     </div>
   );
 };
 
 export default Map;
-
-// need for the legend
-// const censusTracts = map_1980.features.map((feature) => {
-//   const tract = feature.properties.GISJOIN2;
-//   return tract.slice(-3) / 100;
-// });
-
-// const allColors = map_1980.features.map((feature) => [
-//   feature.properties.GISJOIN2,
-//   getColorForValue(feature.properties[demographic]),
-// ]);
