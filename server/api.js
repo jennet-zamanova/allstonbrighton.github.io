@@ -47,7 +47,6 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.post("/tract", (req, res) => {
-  console.log("this is tract", req.body);
   const tract = new Census(req.body);
   tract.save();
 });
@@ -62,8 +61,6 @@ router.get("/allGeoJSON", (req, res) => {
         features: data[0].features,
       };
       res.send(output);
-      console.log("retrieving census data hey");
-      console.log(output);
     })
     .catch((err) => res.status(500).send("Internal Server Error"));
 });
