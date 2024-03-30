@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../utilities.js";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
-import { map_1980 } from "./1980.js";
+// import { map_1980 } from "./1980.js";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
@@ -10,8 +10,8 @@ const Map = () => {
   const [geojson, setGeojson] = useState(null);
 
   useEffect(() => {
-    const body = { name: "neighborhood_tract_1980" };
-    // post("/api/tract", map_1980); // use this code to post new data to mongoDB
+    const body = { name: "2010" }; // change to string of year for whatever year we are looking at
+    // post("/api/tract", map_2000); // use this code to post new data to mongoDB
 
     get("/api/allGeoJSON", body)
       .then((output) => {
