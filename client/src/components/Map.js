@@ -48,7 +48,6 @@ const Map = () => {
           </Popup>
         </Marker> */}
         {/* <Legend legendItems={map_1980.features} allColors={allColors} /> */}
-        </Marker> */}
       </MapContainer>
     </div>
   );
