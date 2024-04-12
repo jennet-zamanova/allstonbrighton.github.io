@@ -12,35 +12,51 @@ const Map = (props) => {
   const [mapAB, setMap] = useState(null);
   const [geojson, setGeojson] = useState(null);
   const [legend, setLegend] = useState(null);
-  const demographic = props.filter;
-
-  useEffect(() => {
-    const body = { name: "1980" };
-    // post("/api/tract", map_1980); // use this code to post new data to mongoDB
-
-    get("/api/allGeoJSON", body)
-      .then((output) => {
-        console.log(output);
-        setMap(output);
-        // creating geoJSON object to visualize map data once we have it from api call
-        setGeojson(
-          <GeoJSON data={output} style={styleFunction} onEachFeature={handleFeatureClick} />
-        );
-      })
-      .catch((error) => {
-        console.error("Error while getting GeoJSON data from MongoDB", error);
-      });
-  }, []);
-
+  let demographic = props.filter;
   let styleFunction = (feature) => {
     return {
       color: "red", // Default color if not specified
       fillOpacity: 0.6, // You can set other style properties here, like weight, fill color, etc.
     };
   };
+
+  // Function to handle click event on GeoJSON feature
+  // let handleFeatureClick = (feature, layer) => {
+  //   layer.bindPopup("Number of some category" + "<br>" + feature.properties[demographic]);
+  // };
+  const handleFeatureClick = (feature, layer) => {
+    // Bind popup to the clicked feature
+    if (feature.properties) {
+      // modify once the category name is known
+      console.log("current name", props.filterName);
+      layer.unbindPopup();
+      layer.bindPopup("Number of " + props.filterName + "<br>" + feature.properties[demographic]);
+    }
+  };
+
   useEffect(() => {
+    demographic = props.filter;
+    // console.log("map got new feature", demographic);
+    const body = { name: "1980" };
+    console.log("opdated name", props.filterName);
+    get("/api/allGeoJSON", body)
+      .then((output) => {
+        // console.log(output);
+        setMap(output);
+        // creating geoJSON object to visualize map data once we have it from api call
+        // setGeojson(
+        //   <GeoJSON data={output} style={styleFunction} onEachFeature={handleFeatureClick} />
+        // );
+      })
+      .catch((error) => {
+        console.error("Error while getting GeoJSON data from MongoDB", error);
+      });
+  }, [props]);
+
+  useEffect(() => {
+    console.log("A:::", mapAB);
     if (mapAB !== null) {
-      console.log(mapAB);
+      // console.log(mapAB);
       // select colorscale based on data
       const demographicCategory = mapAB.features.map((feature) => feature.properties[demographic]);
       // Define the color scale
@@ -70,19 +86,11 @@ const Map = (props) => {
         getColorForValue(feature.properties[demographic]),
       ]);
 
+      console.log("categroy", props.filterName);
       setGeojson(<GeoJSON data={mapAB} style={styleFunction} onEachFeature={handleFeatureClick} />);
       setLegend(<Legend legendItems={mapAB.features} allColors={allColors} />);
     }
-  }, [mapAB]);
-
-  // Function to handle click event on GeoJSON feature
-  const handleFeatureClick = (feature, layer) => {
-    // Bind popup to the clicked feature
-    if (feature.properties) {
-      // modify once the category name is known
-      layer.bindPopup("Number of some category" + "<br>" + feature.properties[demographic]);
-    }
-  };
+  }, [mapAB, props.filterName]);
 
   return (
     <div className="Map">
@@ -96,7 +104,6 @@ const Map = (props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
         {geojson}
         {legend}
       </MapContainer>

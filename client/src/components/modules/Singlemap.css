@@ -1,4 +1,4 @@
-.Maps-page {
+.SingleMap {
   position: relative;
 }
 
@@ -12,9 +12,9 @@
   justify-content: center;
 }
 
-.SingleMap {
+.Map {
   display: inline-block;
-  width: 50%;
+  width: 48%;
   height: 84vh;
   padding: 0 2.5%;
 }

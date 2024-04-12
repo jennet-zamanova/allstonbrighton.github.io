@@ -10,9 +10,14 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore, Menu } from "@mui/icons-material";
 
-function SideMenu() {
+const SideMenu = (props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategory, setOpenCategory] = useState({});
+
+  const populationCategories = [
+    ["Population", "JSE_T006_0"],
+    ["Number of Children", "JSE_T006_1"],
+  ];
 
   const toggleCategory = (category) => {
     setOpenCategory((prevState) => ({
@@ -25,7 +30,9 @@ function SideMenu() {
     setOpenDrawer(!openDrawer);
   };
 
-  const handleClickCategory = () => {};
+  const handleClickCategory = (categoryName, category) => {
+    props.onPropChange(categoryName, category);
+  };
 
   return (
     <div>
@@ -40,12 +47,16 @@ function SideMenu() {
           </ListItemButton>
           <Collapse in={openCategory["Category 1"]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton onClick={handleClickCategory}>
-                <ListItemText primary="JSE_T006_0" />
-              </ListItemButton>
-              <ListItemButton onClick={handleClickCategory}>
-                <ListItemText primary="JSE_T006_1" />
-              </ListItemButton>
+              {populationCategories.map(([categoryName, category], idx) => {
+                return (
+                  <ListItemButton
+                    onClick={() => handleClickCategory(categoryName, category)}
+                    key={idx}
+                  >
+                    <ListItemText primary={categoryName} secondary={category} />
+                  </ListItemButton>
+                );
+              })}
             </List>
           </Collapse>
           {/* Add more categories with subcategories as needed */}
@@ -53,6 +64,6 @@ function SideMenu() {
       </Drawer>
     </div>
   );
-}
+};
 
 export default SideMenu;

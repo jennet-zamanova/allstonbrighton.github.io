@@ -15,8 +15,8 @@ const Legend = (props) => {
 
   // Render the legend items
   const renderLegendItems = () => {
-    return props.legendItems.map((item) => (
-      <div key={item.color}>
+    return props.legendItems.map((item, idx) => (
+      <div key={idx}>
         <span
           style={{
             backgroundColor: props.allColors.filter(
