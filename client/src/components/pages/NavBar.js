@@ -12,7 +12,7 @@ const navItems = ["About", "Map", "History"];
 
 function NavBar() {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", height: "10vh" }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar className="NavBar-container">

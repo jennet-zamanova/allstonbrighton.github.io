@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { List, ListItem, ListItemText, Collapse, IconButton, Drawer } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Collapse,
+  IconButton,
+  Drawer,
+  ListItemButton,
+} from "@mui/material";
 import { ExpandLess, ExpandMore, Menu } from "@mui/icons-material";
 
 function SideMenu() {
@@ -17,6 +25,8 @@ function SideMenu() {
     setOpenDrawer(!openDrawer);
   };
 
+  const handleClickCategory = () => {};
+
   return (
     <div>
       <IconButton onClick={toggleMenu}>
@@ -24,18 +34,18 @@ function SideMenu() {
       </IconButton>
       <Drawer anchor="left" open={openDrawer} onClose={toggleMenu}>
         <List>
-          <ListItem button onClick={() => toggleCategory("Category 1")}>
+          <ListItemButton onClick={() => toggleCategory("Category 1")}>
             <ListItemText primary="Category 1" />
             {openCategory["Category 1"] ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
+          </ListItemButton>
           <Collapse in={openCategory["Category 1"]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button>
-                <ListItemText primary="Subcategory 1.1" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="Subcategory 1.2" />
-              </ListItem>
+              <ListItemButton onClick={handleClickCategory}>
+                <ListItemText primary="JSE_T006_0" />
+              </ListItemButton>
+              <ListItemButton onClick={handleClickCategory}>
+                <ListItemText primary="JSE_T006_1" />
+              </ListItemButton>
             </List>
           </Collapse>
           {/* Add more categories with subcategories as needed */}

@@ -1,0 +1,20 @@
+.Maps-page {
+  position: relative;
+}
+
+.SideMenu {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.Maps {
+  display: flex;
+  justify-content: center;
+}
+
+.SingleMap {
+  display: inline-block;
+  width: 48%;
+  height: 84vh;
+  padding: 0 2.5%;
+}

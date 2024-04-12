@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { get, post } from "../utilities.js";
+import { get, post } from "../../utilities.js";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
 // Import required D3 modules
 import { interpolateYlGnBu } from "d3";
 import { scaleLinear } from "d3";
-import Legend from "./modules/Legend.js";
+import Legend from "./Legend.js";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
