@@ -2,11 +2,6 @@
   position: relative;
 }
 
-.SideMenu {
-  width: fit-content;
-  cursor: pointer;
-}
-
 .Maps {
   display: flex;
   justify-content: center;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Map from "./Map.js";
 import SideMenu from "./Menu.js";
 import "./SingleMap.css";
-const SingleMap = (props) => {
+const SingleMap = () => {
   const [category, setCategory] = useState("JSE_T006_0");
   const [categoryName, setCategoryName] = useState("JSE_T006_0");
   const handlePropChange = (newCategoryName, newValue) => {
@@ -17,10 +17,7 @@ const SingleMap = (props) => {
       <div className="SideMenu">
         <SideMenu onPropChange={handlePropChange} />
       </div>
-      {/* <div className="Map">
-        {" "} */}
       <Map filter={category} filterName={categoryName} />
-      {/* </div> */}
     </div>
   );
 };
