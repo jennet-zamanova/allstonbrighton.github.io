@@ -10,6 +10,7 @@ import Map from "./pages/Map.js";
 import "../utilities.css";
 
 import { get, post } from "../utilities";
+import Maps from "./Maps.js";
 
 /**
  * Define the "App" component
@@ -26,5 +27,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;

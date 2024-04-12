@@ -34,7 +34,6 @@ const api = require("./api");
 const mongoConnectionURL = process.env.MONGO_SRV;
 // TODO change database name to the name you chose
 const databaseName = "FILL_ME_IN";
-
 // mongoose 7 warning
 mongoose.set("strictQuery", false);
 
